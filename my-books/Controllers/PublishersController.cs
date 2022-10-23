@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using my_books.ActionResults;
+using my_books.Data.Models;
 using my_books.Data.Services;
 using my_books.Data.ViewModels;
 using my_books.Exceptions;
@@ -40,6 +42,7 @@ namespace my_books.Controllers
 
         [HttpGet("get-publisher-by-id/{id}")]
         public IActionResult GetPublisherById(int id)
+            //CustomActionResult 
         {
             //throw new Exception("This is an exception that will be handled by middleware");
            
@@ -47,8 +50,22 @@ namespace my_books.Controllers
             if(_response != null) 
             {
                 return Ok(_response);
+
+                //var _responseObj = new CustomActionResultVM()
+                //{
+                //    Publisher = _response
+                //};
+                //return new CustomActionResult(_responseObj);
+
             } else
             {
+                //var _responseObj = new CustomActionResultVM()
+                //{
+                //    Exception = new Exception("This is coming from publishers controller")
+                //};
+                //return new CustomActionResult(_responseObj);
+
+                //return null; if SpecificType or Not IActionResult
                 return NotFound();
             }
             
