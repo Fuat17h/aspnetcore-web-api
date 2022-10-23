@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using my_books.Data;
 using my_books.Data.Services;
+using my_books.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ options.UseSqlServer(
 
 //Configure the Services
 builder.Services.AddTransient<BooksService>();
+builder.Services.AddTransient<AuthorsService>();
+builder.Services.AddTransient<PublishersService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -38,9 +41,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+//Exception Handling
+app.ConfigureBuildInExceptionHandler();
+//app.ConfigureCustomExceptionHandler();
+
 app.MapControllers();
 
 //DBSeed
-AppDbInitializer.Seed(app);
+//AppDbInitializer.Seed(app);
 
 app.Run();
